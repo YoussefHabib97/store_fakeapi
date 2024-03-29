@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:store_fakeapi/models/product_model.dart';
+import 'package:store_fakeapi/services/get_all_products_service.dart';
+import 'package:store_fakeapi/widgets/product_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -19,67 +21,41 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              width: 225,
-              height: 125,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 40,
-                    color: Colors.grey.withOpacity(0.25),
-                    spreadRadius: 0,
-                    offset: const Offset(10, 10),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Handbag LV',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              '\$254.99',
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.favorite_outline,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              right: 32,
-              bottom: 84,
-              child: Image.network(
-                'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-                height: 128,
-              ),
-            ),
-          ],
-        ),
+      body: FutureBuilder<List<Product>>(
+        future: GetAllProductsService().getAllProducts(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Product> products = snapshot.data!;
+            return ProductsGridView(
+              products: products,
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
+
+class ProductsGridView extends StatelessWidget {
+  final List<Product> products;
+  const ProductsGridView({
+    super.key,
+    required this.products,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: products.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemBuilder: (context, index) => ProductCard(
+        product: products[index],
       ),
     );
   }

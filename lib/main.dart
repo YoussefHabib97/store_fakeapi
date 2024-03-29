@@ -15,6 +15,7 @@ class MainApp extends StatelessWidget {
       routes: {
         HomeView.route: (context) => const HomeView(),
       },
+      theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
         body: Center(
