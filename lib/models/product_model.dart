@@ -22,7 +22,7 @@ class Product {
       price: json['price'],
       description: json['description'],
       image: json['image'],
-      rating: Rating.fromJson(json),
+      rating: Rating.fromJson(json['rating']),
     );
   }
 }
