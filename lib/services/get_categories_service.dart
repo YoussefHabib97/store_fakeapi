@@ -3,10 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:store_fakeapi/constants.dart';
 import 'package:store_fakeapi/models/product_model.dart';
 
-class GetAllProductsService {
-  Future<List<Product>> getAllProducts() async {
+class GetCategoriesService {
+  Future<List<Product>> getCategoriesProducts(
+      {required String category}) async {
     try {
-      http.Response response = await http.get(Uri.parse('$kBaseUrl/products'));
+      http.Response response =
+          await http.get(Uri.parse('$kBaseUrl/products/category/$category'));
 
       List<dynamic> data = jsonDecode(response.body);
 
