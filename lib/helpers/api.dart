@@ -51,6 +51,9 @@ class Api {
     if (token != null) {
       headers.addAll({'Authorization': 'Bearer $token'});
     }
+
+    print('Url:$url, body:$body, token:$token');
+
     http.Response response = await http.post(
       Uri.parse(url),
       body: body,
@@ -59,10 +62,12 @@ class Api {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
+      print(data);
       return data;
     } else {
       throw Exception(
-          'There was a problem.\nStatus code:${response.statusCode} with body:${jsonDecode(response.body)}');
+        'There was a problem.\nStatus code:${response.statusCode} with body:${jsonDecode(response.body)}',
+      );
     }
   }
 }

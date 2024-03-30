@@ -1,36 +1,39 @@
 class Product {
-  final int id;
+  final dynamic id;
   final String title;
-  final num price;
+  final dynamic price;
   final String description;
   final String image;
   final Rating? rating;
   final String category;
-
   Product(
       {required this.id,
       required this.title,
+      required this.category,
       required this.price,
       required this.description,
       required this.image,
-      required this.rating,
-      required this.category});
+      required this.rating});
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory Product.fromJson(jsonData) {
     return Product(
-      id: json['id'],
-      title: json['title'],
-      price: json['price'],
-      description: json['description'],
-      image: json['image'],
-      rating: Rating.fromJson(json['rating']),
-      category: json['category'],
+      id: jsonData['id'],
+      title: jsonData['title'],
+      category: jsonData['category'],
+      price: jsonData['price'],
+      description: jsonData['description'],
+      image: jsonData['image'],
+      rating: jsonData['rating'] == null
+          ? null
+          : Rating.fromJson(
+              jsonData['rating'],
+            ),
     );
   }
 }
 
 class Rating {
-  final num rate;
+  final dynamic rate;
   final int count;
 
   Rating({
@@ -38,10 +41,10 @@ class Rating {
     required this.count,
   });
 
-  factory Rating.fromJson(Map<String, dynamic> json) {
+  factory Rating.fromJson(jsonData) {
     return Rating(
-      rate: json['rate'],
-      count: json['count'],
+      rate: jsonData['rate'],
+      count: jsonData['count'],
     );
   }
 }

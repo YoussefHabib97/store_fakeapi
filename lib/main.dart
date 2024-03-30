@@ -15,7 +15,7 @@ class MainApp extends StatelessWidget {
       initialRoute: HomeView.route,
       routes: {
         HomeView.route: (context) => const HomeView(),
-        UpdateProductView.route: (context) => UpdateProductView(),
+        UpdateProductView.route: (context) => const UpdateProductView(),
       },
       theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
