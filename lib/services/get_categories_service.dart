@@ -15,7 +15,6 @@ class GetCategoriesService {
       }
       return productsList;
     } on Exception catch (e) {
-      print(e);
       return [];
     }
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:store_fakeapi/models/product_model.dart';
+import 'package:store_fakeapi/views/update_product_view.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -12,7 +13,10 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(UpdateProductView.route, arguments: product);
+      },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
