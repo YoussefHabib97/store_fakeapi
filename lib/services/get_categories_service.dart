@@ -14,7 +14,7 @@ class GetCategoriesService {
         productsList.add(Product.fromJson(product));
       }
       return productsList;
-    } on Exception catch (e) {
+    } on Exception {
       return [];
     }
   }
